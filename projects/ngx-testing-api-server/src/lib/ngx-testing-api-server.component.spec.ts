@@ -8,9 +8,8 @@ describe('NgxTestingApiServerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NgxTestingApiServerComponent ]
-    })
-    .compileComponents();
+      declarations: [NgxTestingApiServerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NgxTestingApiServerComponent);
     component = fixture.componentInstance;
