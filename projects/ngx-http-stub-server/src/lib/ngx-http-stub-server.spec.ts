@@ -2,7 +2,7 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { lastValueFrom } from 'rxjs';
-import { handlerBuilder, setupTestingServer } from './handler';
+import { handlerBuilder, setupStubServer } from './handler';
 import { HttpClientStubBackendController } from './ngx-http-stub-server';
 
 @Injectable({
@@ -47,7 +47,7 @@ describe('NgxTestingApiServer', () => {
   let backendController: HttpClientStubBackendController<ServerState>;
 
   beforeEach(() => {
-    const server = setupTestingServer<ServerState>(
+    const server = setupStubServer<ServerState>(
       {
         users: [
           {
@@ -93,10 +93,7 @@ describe('NgxTestingApiServer', () => {
     );
 
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-        server.provideHttpClientTestingBackend(),
-      ],
+      providers: [provideHttpClient(), server.provideHttpClientStubBackend()],
     });
     service = TestBed.inject(DummyService);
     backendController = TestBed.inject(HttpClientStubBackendController);

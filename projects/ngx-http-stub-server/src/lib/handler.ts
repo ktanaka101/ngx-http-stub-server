@@ -9,7 +9,7 @@ import {
   HttpClientStubBackendController,
 } from './ngx-http-stub-server';
 
-export function setupTestingServer<TState>(
+export function setupStubServer<TState>(
   initialState: TState,
   ...handlers: ApiHandler<TState>[]
 ) {
@@ -19,7 +19,7 @@ export function setupTestingServer<TState>(
 
   return {
     server,
-    provideHttpClientTestingBackend: () => {
+    provideHttpClientStubBackend: () => {
       return [
         HttpClientStubBackend,
         {

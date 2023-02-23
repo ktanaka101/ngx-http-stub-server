@@ -1,7 +1,7 @@
-export { HttpClientStubBackendController as HttpClientTestingBackendController } from './lib/ngx-http-stub-server';
+export { HttpClientStubBackendController } from './lib/ngx-http-stub-server';
 export {
   ApiHandler,
   handlerBuilder,
   responseBuilder,
-  setupTestingServer,
+  setupStubServer,
 } from './lib/handler';
