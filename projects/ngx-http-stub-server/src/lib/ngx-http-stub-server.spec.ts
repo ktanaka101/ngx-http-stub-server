@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { lastValueFrom } from 'rxjs';
 import { handlerBuilder, setupTestingServer } from './handler';
-import { HttpClientTestingBackendController } from './ngx-http-stub-server';
+import { HttpClientStubBackendController } from './ngx-http-stub-server';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +44,7 @@ type ServerState = {
 
 describe('NgxTestingApiServer', () => {
   let service: DummyService;
-  let backendController: HttpClientTestingBackendController<ServerState>;
+  let backendController: HttpClientStubBackendController<ServerState>;
 
   beforeEach(() => {
     const server = setupTestingServer<ServerState>(
@@ -99,7 +99,7 @@ describe('NgxTestingApiServer', () => {
       ],
     });
     service = TestBed.inject(DummyService);
-    backendController = TestBed.inject(HttpClientTestingBackendController);
+    backendController = TestBed.inject(HttpClientStubBackendController);
   });
 
   it('Get a stub value', fakeAsync(() => {

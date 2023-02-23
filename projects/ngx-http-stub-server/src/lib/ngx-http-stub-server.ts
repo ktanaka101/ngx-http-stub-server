@@ -11,8 +11,8 @@ import { Observable } from 'rxjs';
 import { ApiHandler, HttpMethod, responseBuilder } from './handler';
 
 @Injectable()
-export class HttpClientTestingBackendController<TState> {
-  constructor(private backend: HttpClientTestingBackend<TState>) {}
+export class HttpClientStubBackendController<TState> {
+  constructor(private backend: HttpClientStubBackend<TState>) {}
 
   putHandlers(...handlers: ApiHandler<TState>[]): void {
     this.backend.putHandlers(...handlers);
@@ -20,7 +20,7 @@ export class HttpClientTestingBackendController<TState> {
 }
 
 @Injectable()
-export class HttpClientTestingBackend<TState> implements HttpBackend {
+export class HttpClientStubBackend<TState> implements HttpBackend {
   private apiHandlers!: ApiHandlers<TState>;
   private state!: TState;
 

@@ -5,29 +5,29 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import {
-  HttpClientTestingBackend,
-  HttpClientTestingBackendController,
+  HttpClientStubBackend,
+  HttpClientStubBackendController,
 } from './ngx-http-stub-server';
 
 export function setupTestingServer<TState>(
   initialState: TState,
   ...handlers: ApiHandler<TState>[]
 ) {
-  const server = new HttpClientTestingBackend<TState>();
+  const server = new HttpClientStubBackend<TState>();
   server.initialize(initialState, handlers);
-  const controller = new HttpClientTestingBackendController<TState>(server);
+  const controller = new HttpClientStubBackendController<TState>(server);
 
   return {
     server,
     provideHttpClientTestingBackend: () => {
       return [
-        HttpClientTestingBackend,
+        HttpClientStubBackend,
         {
           provide: HttpBackend,
           useValue: server,
         },
         {
-          provide: HttpClientTestingBackendController,
+          provide: HttpClientStubBackendController,
           useValue: controller,
         },
       ];
