@@ -7,7 +7,7 @@ import {
 import {
   HttpClientTestingBackend,
   HttpClientTestingBackendController,
-} from './ngx-testing-api-server';
+} from './ngx-http-stub-server';
 
 export function setupTestingServer<TState>(
   initialState: TState,

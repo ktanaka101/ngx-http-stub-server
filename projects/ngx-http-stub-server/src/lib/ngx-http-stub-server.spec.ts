@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { lastValueFrom } from 'rxjs';
 import { handlerBuilder, setupTestingServer } from './handler';
-import { HttpClientTestingBackendController } from './ngx-testing-api-server';
+import { HttpClientTestingBackendController } from './ngx-http-stub-server';
 
 @Injectable({
   providedIn: 'root',
