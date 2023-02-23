@@ -1,6 +1,7 @@
 {
-  "name": "ngx-testing-api-server",
+  "name": "ngx-http-stub-server",
   "version": "0.0.1",
+  "author": "ktanaka101 <kentanaka101@gmail.com>",
   "peerDependencies": {
     "@angular/common": "^15.1.0",
     "@angular/core": "^15.1.0"
@@ -8,5 +9,6 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "license": "MIT",
   "sideEffects": false
 }
