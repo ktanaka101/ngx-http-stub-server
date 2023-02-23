@@ -42,7 +42,7 @@ type ServerState = {
   }[];
 };
 
-describe('NgxTestingApiServer', () => {
+describe('HttpClientStubBackend', () => {
   let service: DummyService;
   let backendController: HttpClientStubBackendController<ServerState>;
 
