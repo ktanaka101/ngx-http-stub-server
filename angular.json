@@ -3,23 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-testing-api-server": {
+    "ngx-http-stub-server": {
       "projectType": "library",
-      "root": "projects/ngx-testing-api-server",
-      "sourceRoot": "projects/ngx-testing-api-server/src",
+      "root": "projects/ngx-http-stub-server",
+      "sourceRoot": "projects/ngx-http-stub-server/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ngx-testing-api-server/ng-package.json"
+            "project": "projects/ngx-http-stub-server/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-testing-api-server/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-http-stub-server/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ngx-testing-api-server/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-http-stub-server/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,7 +27,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/ngx-testing-api-server/tsconfig.spec.json",
+            "tsConfig": "projects/ngx-http-stub-server/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
@@ -38,8 +38,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/ngx-testing-api-server/**/*.ts",
-              "projects/ngx-testing-api-server/**/*.html"
+              "projects/ngx-http-stub-server/**/*.ts",
+              "projects/ngx-http-stub-server/**/*.html"
             ]
           }
         }

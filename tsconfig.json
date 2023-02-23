@@ -12,7 +12,7 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "ngx-testing-api-server": ["dist/ngx-testing-api-server"]
+      "ngx-http-stub-server": ["dist/ngx-http-stub-server"]
     },
     "declaration": false,
     "downlevelIteration": true,

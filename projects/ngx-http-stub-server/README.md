@@ -4,21 +4,21 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Code scaffolding
 
-Run `ng generate component component-name --project ngx-testing-api-server` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-testing-api-server`.
+Run `ng generate component component-name --project ngx-http-stub-server` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-http-stub-server`.
 
-> Note: Don't forget to add `--project ngx-testing-api-server` or else it will be added to the default project in your `angular.json` file.
+> Note: Don't forget to add `--project ngx-http-stub-server` or else it will be added to the default project in your `angular.json` file.
 
 ## Build
 
-Run `ng build ngx-testing-api-server` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build ngx-http-stub-server` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Publishing
 
-After building your library with `ng build ngx-testing-api-server`, go to the dist folder `cd dist/ngx-testing-api-server` and run `npm publish`.
+After building your library with `ng build ngx-http-stub-server`, go to the dist folder `cd dist/ngx-http-stub-server` and run `npm publish`.
 
 ## Running unit tests
 
-Run `ng test ngx-testing-api-server` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test ngx-http-stub-server` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Further help
 
