@@ -1,6 +1,6 @@
 {
   "name": "ngx-http-stub-server",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "author": "ktanaka101 <kentanaka101@gmail.com>",
   "repository": "https://github.com/ktanaka101/ngx-http-stub-server",
   "peerDependencies": {
