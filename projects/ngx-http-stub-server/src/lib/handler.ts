@@ -99,9 +99,9 @@ export type HandlerFn<TState> = (
  * A builder for creating handlers.
  *
  * @example
- *   const handler = handlerBuilder.get('/users', (req, res, state) => {
+ *   const handler = handlerBuilder.get('/users', (_req, res, _state) => {
  *     return res.ok({
- *       body: state.users,
+ *       body: 'Stub response body',
  *       status: 200,
  *     });
  *   });
