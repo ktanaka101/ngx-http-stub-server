@@ -51,7 +51,7 @@ export function setupStubServer<TState>(
   const controller = new HttpClientStubBackendController<TState>(server);
 
   return {
-    server,
+    controller,
     provideHttpClientStubBackend: () => {
       return [
         HttpClientStubBackend,
