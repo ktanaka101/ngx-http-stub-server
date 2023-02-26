@@ -11,18 +11,98 @@ import { Observable } from 'rxjs';
 import { ApiHandler, HttpMethod, responseBuilder } from './handler';
 import clone from 'clone';
 
+/**
+ * This class is used to control the HttpClientStubBackend.
+ * It is used to put handlers and reset the state.
+ */
 @Injectable()
 export class HttpClientStubBackendController<TState> {
   constructor(private backend: HttpClientStubBackend<TState>) {}
 
+  /**
+   * If a handler with matching HTTP method and URL exists, overwrite that handler.
+   * If it doesn't exist, just add it.
+   *
+   * @param handlers The handlers to be used by the backend.
+   *
+   * @example
+   *   const server = setupStubServer<{}>(
+   *     {},
+   *     handlerBuilder.get('/users', (_req, res, _state) => {
+   *       return res.ok({
+   *         body: 'Original body',
+   *         status: 200,
+   *       });
+   *     }),
+   *   );
+   *   // get `/users` will return 'Original body'.
+   *
+   *   server.controller.putHandler(
+   *     handlerBuilder.get('/users', (_req, res, _state) => {
+   *       return res.ok({
+   *         body: 'Override body',
+   *         status: 200,
+   *       })
+   *     })
+   *   );
+   *   // get `/users` will return 'Override body'.
+   */
   putHandlers(...handlers: ApiHandler<TState>[]): void {
     this.backend.putHandlers(...handlers);
   }
 
+  /**
+   * Initialize the backend with the initial handlers.
+   *
+   * @example
+   *   const server = setupStubServer<{}>(
+   *     {},
+   *     handlerBuilder.get('/users', (_req, res, _state) => {
+   *       return res.ok({
+   *         body: 'Original body',
+   *         status: 200,
+   *       });
+   *     }),
+   *   );
+   *   server.controller.putHandler(
+   *     handlerBuilder.get('/users', (_req, res, _state) => {
+   *       return res.ok({
+   *         body: 'Override body',
+   *         status: 200,
+   *       })
+   *     })
+   *   );
+   *   // get `/users` will return 'Override body'.
+   *
+   *   server.controller.resetHandlers();
+   *   // get `/users` will return 'Original body'.
+   */
   resetHandlers(): void {
     this.backend.resetHandlers();
   }
 
+  /**
+   * Reset the state of the backend.
+   *
+   * @example
+   *   const server = setupStubServer<{}>(
+   *     {},
+   *     handlerBuilder.get('/users', (_req, res, state) => {
+   *       const response = res.ok({
+   *         body: state,
+   *         status: 200,
+   *       });
+   *       state = { overide: 100 };
+   *
+   *       return response;
+   *     }),
+   *   );
+   *   // First time, get `/users` will return `{}`.
+   *   // Second time, get `/users` will return `{ overide: 100 }`.
+   *
+   *   server.controller.resetState();
+   *   // get `/users` will return `{}`.
+   */
   resetState(): void {
     this.backend.resetState();
   }

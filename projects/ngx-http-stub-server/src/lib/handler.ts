@@ -9,6 +9,13 @@ import {
   HttpClientStubBackendController,
 } from './ngx-http-stub-server';
 
+/**
+ * Setup a stub server.
+ *
+ * @param initialState The initial state of the server.
+ * @param handlers The handlers to be used by the backend.
+ * @returns The server controller and the provider function.
+ */
 export function setupStubServer<TState>(
   initialState: TState,
   ...handlers: ApiHandler<TState>[]
@@ -62,6 +69,17 @@ export type HandlerFn<TState> = (
   state: TState
 ) => HttpResponse<unknown> | HttpErrorResponse;
 
+/**
+ * A builder for creating handlers.
+ *
+ * @example
+ *   const handler = handlerBuilder.get('/users', (req, res, state) => {
+ *     return res.ok({
+ *       body: state.users,
+ *       status: 200,
+ *     });
+ *   });
+ */
 export const handlerBuilder = {
   head: <TState>(
     path: string,
@@ -107,13 +125,29 @@ export const handlerBuilder = {
   },
 };
 
+/**
+ * A builder for creating responses.
+ */
 export const responseBuilder = {
+  /**
+   * Create a new HttpResponse with the given parameters.
+   *
+   * @param params The parameters to create the response.
+   * @returns The created response.
+   */
   ok: <T>(params: { body: T; status: number }): HttpResponse<T> => {
     return new HttpResponse({
       body: params.body,
       status: params.status,
     });
   },
+
+  /**
+   * Create a new HttpErrorResponse with the given parameters.
+   *
+   * @param params The parameters to create the response.
+   * @returns The created response.
+   */
   error: (params: { body: string; status: number }): HttpErrorResponse => {
     return new HttpErrorResponse({
       error: params.body,
