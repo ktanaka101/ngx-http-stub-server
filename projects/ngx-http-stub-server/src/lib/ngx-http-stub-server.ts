@@ -9,6 +9,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiHandler, HttpMethod, responseBuilder } from './handler';
+import clone from 'clone';
 
 @Injectable()
 export class HttpClientStubBackendController<TState> {
@@ -17,6 +18,14 @@ export class HttpClientStubBackendController<TState> {
   putHandlers(...handlers: ApiHandler<TState>[]): void {
     this.backend.putHandlers(...handlers);
   }
+
+  resetHandlers(): void {
+    this.backend.resetHandlers();
+  }
+
+  resetState(): void {
+    this.backend.resetState();
+  }
 }
 
 @Injectable()
@@ -24,15 +33,29 @@ export class HttpClientStubBackend<TState> implements HttpBackend {
   private apiHandlers!: ApiHandlers<TState>;
   private state!: TState;
 
+  private initialState!: TState;
+  private initialHandlers!: ApiHandlers<TState>;
+
   initialize(newState: TState, handlers: ApiHandler<TState>[]): void {
-    this.state = newState;
-    this.apiHandlers = new ApiHandlers(handlers);
+    this.state = clone(newState);
+    this.initialState = clone(newState);
+
+    this.apiHandlers = new ApiHandlers(clone(handlers));
+    this.initialHandlers = clone(this.apiHandlers);
   }
 
   putHandlers(...handlers: ApiHandler<TState>[]): void {
     for (const handler of handlers) {
       this.apiHandlers.put(handler);
     }
+  }
+
+  resetHandlers(): void {
+    this.apiHandlers = clone(this.initialHandlers);
+  }
+
+  resetState(): void {
+    this.state = clone(this.initialState);
   }
 
   handle(req: HttpRequest<unknown>): Observable<HttpEvent<unknown>> {

@@ -206,4 +206,148 @@ describe('HttpClientStubBackend', () => {
       },
     ]);
   }));
+
+  it('Get a stub value', fakeAsync(() => {
+    let actualUsers = null as User[] | null;
+    service.getUsers().then((users) => {
+      actualUsers = users;
+    });
+    let actualProjects = null as Project[] | null;
+    service.getProjects().then((projects) => {
+      actualProjects = projects;
+    });
+    tick();
+
+    expect(actualUsers).toEqual([
+      {
+        id: 1,
+        name: 'Alice',
+      },
+      {
+        id: 2,
+        name: 'Bob',
+      },
+    ]);
+
+    expect(actualProjects).toEqual([
+      {
+        id: 1,
+        name: 'Project A',
+        users: [
+          {
+            id: 1,
+            name: 'Alice',
+          },
+          {
+            id: 2,
+            name: 'Bob',
+          },
+        ],
+      },
+      {
+        id: 2,
+        name: 'Project B',
+        users: [],
+      },
+    ]);
+  }));
+
+  it('Reset state', fakeAsync(() => {
+    backendController.putHandlers(
+      handlerBuilder.get('/users', (_req, res, state) => {
+        state.users.push({
+          id: 1000,
+          name: 'override User',
+        });
+        return res.ok({
+          body: state.users,
+          status: 200,
+        });
+      })
+    );
+
+    let actualUsers = null as User[] | null;
+    service.getUsers().then((users) => {
+      actualUsers = users;
+    });
+    tick();
+    expect(actualUsers).toEqual([
+      {
+        id: 1,
+        name: 'Alice',
+      },
+      {
+        id: 2,
+        name: 'Bob',
+      },
+      {
+        id: 1000,
+        name: 'override User',
+      },
+    ]);
+
+    backendController.resetState();
+    service.getUsers().then((users) => {
+      actualUsers = users;
+    });
+    tick();
+    expect(actualUsers).toEqual([
+      {
+        id: 1,
+        name: 'Alice',
+      },
+      {
+        id: 2,
+        name: 'Bob',
+      },
+      {
+        id: 1000,
+        name: 'override User',
+      },
+    ]);
+  }));
+
+  it('Reset handlers', fakeAsync(() => {
+    backendController.putHandlers(
+      handlerBuilder.get('/users', (_req, res, _state) => {
+        return res.ok({
+          body: [
+            {
+              id: 1000,
+              name: 'override User',
+            },
+          ],
+          status: 200,
+        });
+      })
+    );
+
+    let actualUsers = null as User[] | null;
+    service.getUsers().then((users) => {
+      actualUsers = users;
+    });
+    tick();
+    expect(actualUsers).toEqual([
+      {
+        id: 1000,
+        name: 'override User',
+      },
+    ]);
+
+    backendController.resetHandlers();
+    service.getUsers().then((users) => {
+      actualUsers = users;
+    });
+    tick();
+    expect(actualUsers).toEqual([
+      {
+        id: 1,
+        name: 'Alice',
+      },
+      {
+        id: 2,
+        name: 'Bob',
+      },
+    ]);
+  }));
 });
