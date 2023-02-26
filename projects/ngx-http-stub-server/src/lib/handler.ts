@@ -15,6 +15,32 @@ import {
  * @param initialState The initial state of the server.
  * @param handlers The handlers to be used by the backend.
  * @returns The server controller and the provider function.
+ *
+ * @example
+ *   type ServerState = {
+ *     users: User[];
+ *   };
+ *   type User = {
+ *     id: number;
+ *     name: string;
+ *   };
+ *   const server = setupStubServer<ServerState>(
+ *     {
+ *       users: [
+ *         {
+ *           id: 1,
+ *           name: 'Alice',
+ *         },
+ *       ],
+ *     },
+ *     handlerBuilder.get('/users', (_req, res, state) => {
+ *       return res.ok({
+ *         body: state.users,
+ *         status: 200,
+ *       }),
+ *     }),
+ *   );
+ *   // get `/users` will return [{ id: 1, name: 'Alice' }].
  */
 export function setupStubServer<TState>(
   initialState: TState,
